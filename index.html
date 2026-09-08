@@ -1,57 +1,658 @@
-<!DOCTYPE html>
-<html lang="en">
+<!doctype html>
+<!--
+  BUILD SPEC (context/2026-09-09_landing-page-spec.md)
+  Mode: Brand-faithful build. No live page to clone; Figma frame is a scaled
+  wireframe and is not reproduced verbatim.
+
+  Sections: 1 nav / 2 breadcrumb / 3 hero / 4 gallery / 5 overview+calculator /
+  6 location / 7 nearby (REWRITTEN) / 8 materials / 9 facilities / 10 unit mix /
+  11 ENQUIRY FORM (NEW) / 12 other projects / 13 footer
+
+  Deliberate departures from the Figma reference, all recorded in the spec:
+  - Enquiry form ADDED. Reference has no form; its only lead path is a floating
+    WhatsApp link, which is not a lead under T2L.
+  - Nav REDUCED to logo + Register interest + WhatsApp. Reference's corporate nav
+    points at pages not in scope, and each item is an exit away from the form.
+  - Section 7 REWRITTEN. Reference claims "a short walk from Genting's main strip"
+    and cites First World Plaza; client documents place Resorts World at 13km.
+  - Size strip middle figure is 797, not the reference's 750. 750 sq ft does not
+    exist in the unit schedule.
+  - Type from DESIGN.md (brand guide p20), not the frame's fractional sizes.
+  - Sections 8 and 9 filled from brochure p5-p7, replacing "[to confirm]" stubs.
+  - Other-projects cards carry NO photography. Block B and Leeds Residences have
+    no imagery of their own, and using Block C shots under their names would
+    misrepresent them.
+
+  UNRESOLVED FACTS render as visible .tbc tokens, never as figures:
+  price, unit count, level count, APDL/DL numbers, privacy + T&C targets.
+-->
+<html lang="en-MY">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="robots" content="noindex, nofollow">
-  <title>kempas-residences-block-c</title>
-  <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body {
-      min-height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      background: #14181d;
-      color: #f4f1ec;
-      font-family: Georgia, "Times New Roman", serif;
-      text-align: center;
-      padding: 24px;
-    }
-    .eyebrow {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.35em;
-      text-transform: uppercase;
-      color: #b8a380;
-      margin-bottom: 20px;
-    }
-    h1 { font-size: clamp(40px, 8vw, 72px); font-weight: 400; letter-spacing: 0.04em; }
-    .divider { width: 48px; height: 1px; background: #b8a380; margin: 28px auto; }
-    .note {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      color: #c9c4bb;
-      max-width: 44ch;
-      margin: 0 auto;
-    }
-    .deploy-stamp {
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 12px;
-      letter-spacing: 0.08em;
-      color: #6d7680;
-      margin-top: 32px;
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Kempas Residences Block C, Genting Highlands | MLDC</title>
+<meta name="description" content="A completed, low-density freehold condominium in Genting Highlands, Pahang. Fully furnished and move-in ready.">
+<style>
+@font-face{font-family:'Haffer';src:url('assets/fonts/haffer-regular.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+@font-face{font-family:'Haffer';src:url('assets/fonts/haffer-medium.woff2') format('woff2');font-weight:500;font-style:normal;font-display:swap}
+@font-face{font-family:'Haffer';src:url('assets/fonts/haffer-bold.woff2') format('woff2');font-weight:700;font-style:normal;font-display:swap}
+@font-face{font-family:'Haffer Mono';src:url('assets/fonts/haffer-mono.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
+
+:root{
+  --charcoal:#1A1A1A; --offwhite:#E6E6E6; --orange:#FF8800; --white:#FFFFFF;
+  --muted:#646470; --border:#DCDCE0; --whatsapp:#25D366; --muted-dark:#B4B4BA; --surface-dark:#262629; --border-dark:#3A3A3E;
+  --font-wf:'Haffer','Helvetica Neue',Helvetica,Arial,sans-serif;
+  --font-mono:'Haffer Mono',ui-monospace,'SF Mono',Menlo,monospace;
+  --r-btn:999px; --r-card:8px; --r-input:8px;
+  --chamfer:14px;
+  --gutter:24px; --maxw:1200px;
+  --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px; --s7:96px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--white);color:var(--charcoal);
+  font-family:var(--font-wf);font-size:16px;line-height:1.4;letter-spacing:0}
+img{max-width:100%;display:block}
+a{color:inherit}
+h1,h2,h3,p{margin:0}
+
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 var(--gutter)}
+.eyebrow{font-family:var(--font-mono);font-size:12px;line-height:1.4;
+  letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+.h-hero{font-weight:500;font-size:48px;line-height:1.0;letter-spacing:-.02em}
+.h2{font-weight:500;font-size:36px;line-height:1.3;letter-spacing:0}
+.h3{font-weight:400;font-size:24px;line-height:1.3}
+.lead{font-size:16px;line-height:1.4;max-width:60ch}
+.muted{color:var(--muted)}
+.chamfer{clip-path:polygon(var(--chamfer) 0,calc(100% - var(--chamfer)) 0,100% var(--chamfer),
+  100% calc(100% - var(--chamfer)),calc(100% - var(--chamfer)) 100%,var(--chamfer) 100%,
+  0 calc(100% - var(--chamfer)),0 var(--chamfer))}
+
+.tbc{font-family:var(--font-mono);font-size:12px;letter-spacing:.02em;
+  color:var(--charcoal);border:1px dashed var(--orange);border-radius:var(--r-input);
+  padding:2px 8px;display:inline-block;white-space:nowrap}
+
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:var(--s1);
+  min-height:48px;padding:0 var(--s4);border-radius:var(--r-btn);border:1px solid transparent;
+  font-family:var(--font-wf);font-size:16px;font-weight:500;line-height:1;
+  text-decoration:none;cursor:pointer;
+  transition:background-color .18s ease,color .18s ease,transform .18s ease,border-color .18s ease}
+.btn-primary{background:var(--charcoal);color:var(--white)}
+.btn-primary:hover{background:var(--surface-dark);transform:translateY(-1px)}
+.btn-secondary{background:transparent;color:var(--charcoal);border-color:var(--charcoal)}
+.btn-secondary:hover{background:var(--charcoal);color:var(--white)}
+.btn:focus-visible{outline:2px solid var(--orange);outline-offset:3px}
+.btn:active{transform:translateY(0)}
+
+.nav{position:sticky;top:0;z-index:50;background:var(--white);
+  border-bottom:1px solid var(--border)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:var(--s3);
+  min-height:72px}
+.nav-logo{display:inline-flex;align-items:center;min-height:44px}
+.nav-logo img{height:30px;width:auto}
+.nav-act{display:flex;align-items:center;gap:var(--s2)}
+.nav .btn{min-height:44px;padding:0 var(--s3)}
+
+.crumb{padding:var(--s3) 0;font-size:12px;color:var(--muted)}
+.crumb a{text-decoration:none;display:inline-block;padding:15px 0}
+.crumb a:hover{text-decoration:underline}
+
+.hero{padding-bottom:var(--s5)}
+.hero-head{display:flex;flex-direction:column;gap:var(--s2);padding-bottom:var(--s4)}
+.hero-fig{position:relative;background:var(--offwhite)}
+.hero-fig img{width:100%;height:clamp(280px,52vw,560px);object-fit:cover}
+.hero-fig::after{content:"";position:absolute;inset:0;pointer-events:none;
+  background:linear-gradient(180deg,rgba(26,26,26,0) 55%,rgba(26,26,26,.42) 100%)}
+
+.sec{padding:var(--s6) 0}
+.sec-alt{background:var(--offwhite)}
+.sec-head{display:flex;flex-direction:column;gap:var(--s2);margin-bottom:var(--s5)}
+
+.grid-2{display:grid;grid-template-columns:1fr;gap:var(--s5)}
+.card{background:var(--white);border:1px solid var(--border);border-radius:var(--r-card);
+  padding:var(--s4)}
+
+.facts{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--r-card);overflow:hidden}
+.fact{background:var(--white);padding:var(--s3)}
+.fact dt{font-family:var(--font-mono);font-size:12px;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.fact dd{margin:0;font-size:16px;font-weight:500}
+
+.price-row{display:flex;flex-wrap:wrap;align-items:baseline;gap:var(--s2);
+  margin:var(--s3) 0 var(--s1)}
+.cta-row{display:flex;flex-direction:column;gap:var(--s2);margin-top:var(--s4)}
+.cta-row .btn{width:100%}
+
+.calc label{display:block;font-family:var(--font-mono);font-size:12px;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--muted);margin-bottom:6px}
+.calc input,.calc select{width:100%;min-height:48px;padding:0 var(--s2);font-size:16px;
+  font-family:var(--font-wf);color:var(--charcoal);background:var(--white);
+  border:1px solid var(--border);border-radius:var(--r-input)}
+.calc input:focus-visible,.calc select:focus-visible{outline:2px solid var(--charcoal);
+  outline-offset:1px;border-color:var(--charcoal)}
+.calc-grid{display:grid;grid-template-columns:1fr;gap:var(--s3)}
+.calc-hint{font-size:12px;color:var(--muted);margin-top:6px}
+.calc-out{margin-top:var(--s4);padding-top:var(--s3);border-top:1px solid var(--border)}
+.calc-out .amt{font-size:36px;font-weight:500;line-height:1.3;letter-spacing:0}
+.calc-out .amt.is-empty{font-size:24px;font-weight:400;color:var(--muted)}
+
+.near{display:grid;grid-template-columns:1fr;gap:1px;background:var(--border);
+  border:1px solid var(--border);border-radius:var(--r-card);overflow:hidden}
+.near-row{background:var(--white);display:flex;justify-content:space-between;
+  align-items:baseline;gap:var(--s2);padding:14px var(--s3)}
+.near-row .d{font-family:var(--font-mono);font-size:16px;white-space:nowrap}
+.near-grp{background:var(--offwhite);padding:10px var(--s3);font-family:var(--font-mono);
+  font-size:12px;letter-spacing:.02em;text-transform:uppercase;color:var(--muted)}
+
+.mat{width:100%;border-collapse:collapse;font-size:16px}
+.mat th,.mat td{text-align:left;padding:14px var(--s2);border-bottom:1px solid var(--border);
+  vertical-align:top}
+.mat th{font-family:var(--font-mono);font-size:12px;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--muted);font-weight:400}
+.mat td:first-child{font-weight:500;width:34%}
+.tscroll{overflow-x:auto}
+
+.fac-grp{margin-bottom:var(--s4)}
+.fac-grp h3{font-family:var(--font-mono);font-size:12px;letter-spacing:.02em;
+  text-transform:uppercase;color:var(--muted);font-weight:400;margin-bottom:var(--s2)}
+.fac-list{list-style:none;margin:0;padding:0;display:grid;
+  grid-template-columns:1fr;gap:var(--s1)}
+.fac-list li{display:flex;align-items:flex-start;gap:10px;font-size:16px}
+.fac-list svg{flex:0 0 auto;margin-top:3px}
+
+.gal{display:grid;grid-template-columns:repeat(2,1fr);gap:var(--s2)}
+.gal figure{margin:0;background:var(--offwhite)}
+.gal img{width:100%;aspect-ratio:4/3;object-fit:cover}
+.gal figcaption{font-size:12px;color:var(--muted);padding-top:var(--s1)}
+
+.form-card{background:var(--charcoal);color:var(--white);border-radius:var(--r-card);
+  padding:var(--s5) var(--s4)}
+.form-card .eyebrow,.form-card .muted{color:var(--muted-dark)}
+.form-card label{display:block;font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.02em;text-transform:uppercase;color:var(--muted-dark);margin-bottom:6px}
+.form-card input[type=text],.form-card input[type=email],.form-card input[type=tel]{
+  width:100%;min-height:48px;padding:0 var(--s2);font-size:16px;font-family:var(--font-wf);
+  color:var(--white);background:var(--surface-dark);border:1px solid var(--border-dark);border-radius:var(--r-input)}
+.form-card input:focus-visible{outline:2px solid var(--orange);outline-offset:1px}
+.form-field{margin-bottom:var(--s3)}
+.form-card .btn-primary{background:var(--white);color:var(--charcoal);width:100%}
+.form-card .btn-primary:hover{background:var(--offwhite)}
+.consent{margin-top:var(--s3);font-size:12px;line-height:1.5;color:var(--muted-dark)}
+.consent ol{margin:var(--s1) 0 0;padding-left:1.2em}
+.consent p{margin-bottom:var(--s1)}
+.captcha-slot{margin:var(--s3) 0;padding:var(--s3);border:1px dashed var(--border-dark);
+  border-radius:var(--r-input);font-family:var(--font-mono);font-size:12px;
+  letter-spacing:.02em;color:var(--muted-dark);text-align:center}
+.form-notice{margin-top:var(--s2);padding:12px var(--s2);border-radius:var(--r-input);
+  background:var(--surface-dark);border:1px solid var(--orange);color:var(--white);font-size:16px}
+
+.proj{display:grid;grid-template-columns:1fr;gap:var(--s3)}
+.proj-card{border:1px solid var(--border);border-radius:var(--r-card);overflow:hidden;
+  background:var(--white)}
+.proj-body{padding:var(--s3)}
+.proj-ph{aspect-ratio:4/3;background:var(--offwhite);border-bottom:1px solid var(--border)}
+.proj-body .h3{margin:6px 0 4px}
+
+.wa{position:fixed;right:16px;bottom:16px;z-index:60;width:52px;height:52px;
+  border-radius:var(--r-btn);background:var(--whatsapp);display:flex;align-items:center;
+  justify-content:center;box-shadow:0 6px 18px rgba(26,26,26,.22),0 1px 3px rgba(26,26,26,.16)}
+.wa:focus-visible{outline:2px solid var(--charcoal);outline-offset:3px}
+
+.foot{background:var(--charcoal);color:#b4b4ba;padding:var(--s5) 0;font-size:12px}
+.foot-in{display:flex;flex-direction:column;gap:var(--s2)}
+.foot img{height:26px;width:auto}
+.foot a{color:var(--white);text-decoration:none;display:inline-block;padding:14px 0}
+.foot a:hover{text-decoration:underline}
+.foot-legal{line-height:1.6;max-width:80ch}
+
+.tel{font-weight:500;display:inline-flex;align-items:center;min-height:44px}
+.skip{position:absolute;left:-9999px}
+.skip:focus{left:var(--gutter);top:8px;z-index:100;background:var(--charcoal);
+  color:var(--white);padding:10px var(--s2);border-radius:var(--r-input)}
+
+@media (min-width:768px){
+  :root{--gutter:40px;--chamfer:20px}
+  .h-hero{font-size:64px}
+  .grid-2{grid-template-columns:1.05fr .95fr;gap:var(--s6)}
+  .facts{grid-template-columns:repeat(4,1fr)}
+  .calc-grid{grid-template-columns:1fr 1fr}
+  .fac-list{grid-template-columns:1fr 1fr}
+  .gal{grid-template-columns:repeat(3,1fr);gap:var(--s3)}
+  .proj{grid-template-columns:1fr 1fr}
+  .cta-row{flex-direction:row;flex-wrap:wrap}
+  .cta-row .btn{width:auto}
+  .form-card{padding:var(--s6)}
+  .foot-in{flex-direction:row;align-items:center;justify-content:space-between}
+  .sec{padding:var(--s7) 0}
+}
+@media (prefers-reduced-motion:reduce){
+  *{transition:none!important}
+}
+</style>
 </head>
 <body>
-  <main>
-    <p class="eyebrow">MLDC</p>
-    <h1>MLDC</h1>
-    <div class="divider"></div>
-    <p class="note">This page is reserved for the kempas-residences-block-c project site. The full site is launching soon.</p>
-    <p class="deploy-stamp">Deploy check: 2026-09-07 13:07 MYT</p>
-  </main>
+<a class="skip" href="#enquire">Skip to enquiry form</a>
+
+<header class="nav">
+  <div class="wrap nav-in">
+    <a class="nav-logo" href="#top" aria-label="MLDC home">
+      <img src="assets/logo/mldc-primary-black.svg" alt="MLDC" width="64" height="30">
+    </a>
+    <div class="nav-act">
+      <a class="btn btn-secondary" href="https://wa.me/60182288618">WhatsApp us</a>
+      <a class="btn btn-primary" href="#enquire">Register interest</a>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+
+  <nav class="wrap crumb" aria-label="Breadcrumb">
+    <a href="https://www.mldc.com.my">Home</a> / <a href="https://www.mldc.com.my">Projects</a> / <span aria-current="page">Kempas Residences Block C</span>
+  </nav>
+
+  <section class="wrap hero">
+    <div class="hero-head">
+      <p class="eyebrow">Selling now</p>
+      <h1 class="h-hero">Kempas Residences Block C</h1>
+      <p class="lead muted">Genting Highlands, Pahang</p>
+    </div>
+    <figure class="hero-fig chamfer" style="margin:0">
+      <img src="assets/img/hero-aerial.webp" alt="Kempas Residences Block C seen from the air, set into the Genting Highlands hillside" width="1800" height="1200" fetchpriority="high">
+    </figure>
+  </section>
+
+  <section class="sec sec-alt">
+    <div class="wrap">
+      <div class="grid-2">
+        <div>
+          <p class="eyebrow">The project</p>
+          <h2 class="h2" style="margin:var(--s2) 0 var(--s3)">A completed hillside address, not a launch.</h2>
+          <p class="lead">A condominium built into the cool climate and greenery of Genting Highlands. Fully furnished, move-in ready, and finished: completion was Q4 2025, so there are no construction timelines to wait out.</p>
+
+          <div class="price-row">
+            <span class="tbc">Price pending permit confirmation</span>
+          </div>
+          <p class="muted" style="font-size:12px">323 | 797 | 1,066 sq ft &middot; Fully furnished &middot; Freehold</p>
+
+          <dl class="facts" style="margin-top:var(--s4)">
+            <div class="fact"><dt>Tenure</dt><dd>Freehold</dd></div>
+            <div class="fact"><dt>Completion</dt><dd>Q4 2025</dd></div>
+            <div class="fact"><dt>Interior</dt><dd>Fully furnished</dd></div>
+            <div class="fact"><dt>Total units</dt><dd><span class="tbc">TBC</span></dd></div>
+          </dl>
+
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#enquire">Register interest</a>
+            <a class="btn btn-secondary" href="https://wa.me/60182288618">WhatsApp us</a>
+          </div>
+        </div>
+
+        <div class="card calc chamfer">
+          <p class="eyebrow">Estimate my monthly cost</p>
+          <h3 class="h3" style="margin:var(--s2) 0 var(--s1)">What will you actually pay each month?</h3>
+          <p class="muted" style="font-size:12px;margin-bottom:var(--s4)">Mortgage, bills and fees, folded into one number.</p>
+
+          <div class="calc-grid">
+            <div>
+              <label for="c-price">Unit price (RM)</label>
+              <input id="c-price" type="text" inputmode="numeric" value="" placeholder="Price TBC">
+              <p class="calc-hint">Just the number is fine. Type 288 and we read it as RM288,000.</p>
+            </div>
+            <div>
+              <label for="c-margin">Loan margin (%)</label>
+              <input id="c-margin" type="text" inputmode="decimal" value="90">
+            </div>
+            <div>
+              <label for="c-years">Loan period (yrs)</label>
+              <input id="c-years" type="text" inputmode="numeric" value="35">
+            </div>
+            <div>
+              <label for="c-rate">Interest rate (%)</label>
+              <input id="c-rate" type="text" inputmode="decimal" value="4.0">
+            </div>
+          </div>
+
+          <div class="calc-out">
+            <p class="eyebrow">Estimated monthly instalment</p>
+            <p class="amt is-empty" id="c-out">Enter a price to estimate</p>
+            <p class="calc-hint">Indicative only. Excludes maintenance, sinking fund, utilities, stamp duty and legal fees. Not a loan offer, and not a quotation.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Location</p>
+        <h2 class="h2">Cool air, closer than you would think.</h2>
+        <p class="lead">Genting Highlands sits at a different altitude and a different pace, a real climate shift from the Klang Valley rather than a themed getaway. Block C is part of the wider Kempas Residences masterplan, in the same low-density hillside setting that made the original development a quiet retreat rather than a resort strip.</p>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <p class="eyebrow" style="margin-bottom:var(--s2)">Quiet, but not cut off</p>
+          <p class="lead">The nearest amenity is a 350m walk. Daily conveniences sit within a kilometre. The expressway is 8.8km away, and the resort itself is 13km when you actually want it, which is the point: near enough to reach, far enough to be quiet.</p>
+        </div>
+        <div class="near">
+          <p class="near-grp">Leisure and lifestyle</p>
+          <div class="near-row"><span>Genting View Pickle</span><span class="d">350m</span></div>
+          <div class="near-row"><span>Gohtong Jaya commercial area</span><span class="d">3.6km</span></div>
+          <div class="near-row"><span>Resorts World Genting</span><span class="d">13km</span></div>
+          <p class="near-grp">Daily conveniences</p>
+          <div class="near-row"><span>MIX Store, Genting Permai Avenue</span><span class="d">1km</span></div>
+          <div class="near-row"><span>Petron Genting Permai, McDonalds, FamilyMart, Starbucks</span><span class="d">5.7km</span></div>
+          <p class="near-grp">Nature and scenic</p>
+          <div class="near-row"><span>Happy Bee Farm and Insect World</span><span class="d">1.3km</span></div>
+          <div class="near-row"><span>Awana SkyWay</span><span class="d">5.7km</span></div>
+          <div class="near-row"><span>Chin Swee Caves Temple</span><span class="d">9.7km</span></div>
+          <p class="near-grp">Education and connectivity</p>
+          <div class="near-row"><span>Highlands International Boarding School</span><span class="d">1.3km</span></div>
+          <div class="near-row"><span>Karak Expressway</span><span class="d">8.8km</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Materials and finishes</p>
+        <h2 class="h2">What is already in the unit when you get the keys.</h2>
+        <p class="lead">Fully furnished means finished, not staged. Every line below is from the developer's own specification.</p>
+      </div>
+      <div class="card tscroll">
+        <table class="mat">
+          <thead><tr><th scope="col">Area</th><th scope="col">Finish</th></tr></thead>
+          <tbody>
+            <tr><td>Living and dining</td><td>Premium acoustic flooring</td></tr>
+            <tr><td>Kitchen</td><td>Extra-deep preparation surfaces, soft-close cabinetry, branded appliances</td></tr>
+            <tr><td>Bedrooms</td><td>Extra king bed, bespoke lighting, blackout drapery</td></tr>
+            <tr><td>Bathrooms</td><td>Integrated storage, glass enclosure, premium fittings</td></tr>
+            <tr><td>Balcony</td><td>Solid timber, framed in glass</td></tr>
+            <tr><td>Entertainment</td><td>Samsung QLED</td></tr>
+            <tr><td>Climate</td><td>Smart climate control</td></tr>
+            <tr><td>Access</td><td>Digital access with multi-mode entry and guest authorisation</td></tr>
+            <tr><td>Energy</td><td>Hotel-style energy management</td></tr>
+            <tr><td>Main entrance door</td><td><span class="tbc">Spec TBC</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">The units</p>
+        <h2 class="h2">Five layouts, 323 to 1,066 sq ft.</h2>
+        <p class="lead">Sizes below are read from the unit schedule and cross-checked against the brochure. Unit counts per layout are withheld until the developer confirms the total.</p>
+      </div>
+      <div class="card tscroll">
+        <table class="mat">
+          <thead><tr><th scope="col">Layout</th><th scope="col">Size range</th><th scope="col">Units</th></tr></thead>
+          <tbody>
+            <tr><td>1 Bed 1 Bath</td><td>323 to 570 sq ft</td><td><span class="tbc">TBC</span></td></tr>
+            <tr><td>2 Bed 1 Bath</td><td>710 sq ft</td><td><span class="tbc">TBC</span></td></tr>
+            <tr><td>2 Bed 2 Bath</td><td>635 to 1,055 sq ft</td><td><span class="tbc">TBC</span></td></tr>
+            <tr><td>3 Bed 2 Bath</td><td>936 to 1,055 sq ft</td><td><span class="tbc">TBC</span></td></tr>
+            <tr><td>3 Bed 3 Bath</td><td>1,066 sq ft</td><td><span class="tbc">TBC</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-alt">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Facilities</p>
+        <h2 class="h2">Built for how many people actually live here, not the maximum that fits.</h2>
+        <p class="lead">Twenty-one facilities across the development, from the developer's own list.</p>
+      </div>
+
+      <div class="grid-2">
+        <div>
+          <div class="fac-grp">
+            <h3>Water and leisure</h3>
+            <ul class="fac-list">
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 4.2 8 1.6l5 2.6M3 8l5-2.6L13 8M3 11.8l5-2.6 5 2.6"/></svg>Swimming pool</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 4.2 8 1.6l5 2.6M3 8l5-2.6L13 8M3 11.8l5-2.6 5 2.6"/></svg>Kiddies pool</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 13.5h11M4.5 13.5V7h7v6.5M6.5 4.2V2.5M9.5 4.2V2.5"/></svg>Poolside BBQ area</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 13.5h11M4.5 13.5V7h7v6.5M6.5 4.2V2.5M9.5 4.2V2.5"/></svg>Covered BBQ area</li>
+            </ul>
+          </div>
+          <div class="fac-grp">
+            <h3>Recreation</h3>
+            <ul class="fac-list">
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 6.5v3M13.5 6.5v3M4.5 4.5v7M11.5 4.5v7M4.5 8h7"/></svg>Gymnasium and indoor games</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="6.5" cy="6.5" r="4"/><path d="M9.4 9.4l4.1 4.1"/></svg>Pickleball court</li>
+            </ul>
+          </div>
+          <div class="fac-grp">
+            <h3>Outdoor and landscape</h3>
+            <ul class="fac-list">
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 13.5V9M8 9 4.5 5.5M8 9l3.5-3.5M8 5.5V2.5"/></svg>Children's playground</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3.5 6.5h9l-1 7h-7l-1-7ZM6 6.5V4a2 2 0 0 1 4 0"/></svg>Garden cafe</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 8c1.8-1.6 3.7-1.6 5.5 0s3.7 1.6 5.5 0M2.5 11.5c1.8-1.6 3.7-1.6 5.5 0s3.7 1.6 5.5 0"/></svg>Koi pond</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 13.5V7M8 7c0-2.5 1.6-4.5 3.5-4.5M8 7C8 4.5 6.4 2.5 4.5 2.5M4 13.5h8"/></svg>Fountain</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 11.5h11M4.5 11.5v-4h7v4M2.5 7.5 8 3.5l5.5 4"/></svg>Sky deck</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M2.5 11.5h11M4.5 11.5v-4h7v4M2.5 7.5 8 3.5l5.5 4"/></svg>Recreation area</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1.5 12.5 6 6l3 4 2-2.5 3.5 5z"/></svg>Viewing deck</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M1.5 12.5 6 6l3 4 2-2.5 3.5 5z"/></svg>Hiking trail</li>
+            </ul>
+          </div>
+        </div>
+        <div>
+          <div class="fac-grp">
+            <h3>Entertainment and social</h3>
+            <ul class="fac-list">
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="3.5" width="11" height="8" rx="1"/><path d="M6 13.5h4"/></svg>Multipurpose hall</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2.5v6.2M8 8.7a2 2 0 1 0 0 4 2 2 0 0 0 0-4ZM8 2.5l4 1.2"/></svg>Karaoke room</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="2.5" y="4" width="11" height="8" rx="1"/><path d="M6.5 6.5l3.5 1.5-3.5 1.5z"/></svg>Movie room</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="8" cy="5" r="2"/><path d="M3.5 13c0-2.2 2-3.6 4.5-3.6s4.5 1.4 4.5 3.6"/></svg>Meeting room</li>
+            </ul>
+          </div>
+          <div class="fac-grp">
+            <h3>Convenience</h3>
+            <ul class="fac-list">
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8.5 2.5 5 8.5h3l-.5 5 3.5-6h-3z"/></svg>EV charging point</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><rect x="3.5" y="2.5" width="9" height="11" rx="1"/><circle cx="8" cy="9" r="2.6"/></svg>Coin launderette</li>
+            </ul>
+          </div>
+          <div class="fac-grp">
+            <h3>Security</h3>
+            <ul class="fac-list">
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2.2 3.5 4v4c0 3 4.5 5.8 4.5 5.8S12.5 11 12.5 8V4z"/></svg>Guard house</li>
+              <li><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M8 2.2 3.5 4v4c0 3 4.5 5.8 4.5 5.8S12.5 11 12.5 8V4z"/></svg>24-hour security</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">The development</p>
+        <h2 class="h2">A look around.</h2>
+      </div>
+      <div class="gal">
+        <figure><img src="assets/img/living-thumb.webp" alt="Living and dining area of a furnished unit" width="480" height="360" loading="lazy"><figcaption>Living and dining</figcaption></figure>
+        <figure><img src="assets/img/balcony-thumb.webp" alt="Private balcony framed in glass, looking out over the mountains" width="480" height="360" loading="lazy"><figcaption>Private balcony</figcaption></figure>
+        <figure><img src="assets/img/bedroom-thumb.webp" alt="Bedroom with blackout drapery and bespoke lighting" width="480" height="360" loading="lazy"><figcaption>Bedroom</figcaption></figure>
+        <figure><img src="assets/img/kitchen-thumb.webp" alt="Kitchen with soft-close cabinetry and deep preparation surfaces" width="480" height="360" loading="lazy"><figcaption>Kitchen</figcaption></figure>
+        <figure><img src="assets/img/bathroom-thumb.webp" alt="Bathroom with glass enclosure and integrated storage" width="480" height="360" loading="lazy"><figcaption>Bathroom</figcaption></figure>
+        <figure><img src="assets/img/digitallock-thumb.webp" alt="Digital door lock with multi-mode entry" width="480" height="360" loading="lazy"><figcaption>Digital access</figcaption></figure>
+        <figure><img src="assets/img/pool-thumb.webp" alt="Swimming pool" width="480" height="360" loading="lazy"><figcaption>Swimming pool</figcaption></figure>
+        <figure><img src="assets/img/pickleball-thumb.webp" alt="Pickleball court" width="480" height="360" loading="lazy"><figcaption>Pickleball court</figcaption></figure>
+        <figure><img src="assets/img/movieroom-thumb.webp" alt="Movie room" width="480" height="360" loading="lazy"><figcaption>Movie room</figcaption></figure>
+        <figure><img src="assets/img/terrace-thumb.webp" alt="Level 6 terrace seen from above" width="480" height="360" loading="lazy"><figcaption>Level 6 terrace</figcaption></figure>
+        <figure><img src="assets/img/skydeck-thumb.webp" alt="Sky deck seating with a mountain outlook" width="480" height="360" loading="lazy"><figcaption>Sky deck</figcaption></figure>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec sec-alt" id="enquire">
+    <div class="wrap">
+      <div class="grid-2">
+        <div>
+          <p class="eyebrow">Enquire</p>
+          <h2 class="h2" style="margin:var(--s2) 0 var(--s3)">Questions before you commit? Let us talk.</h2>
+          <p class="lead">Fill in your details and we will send you the floor plans, the unit schedule and the current availability. One of our team follows up directly, usually the same working day.</p>
+          <p class="lead muted" style="margin-top:var(--s3)">Prefer to speak now? Call <a class="tel" href="tel:+60182288618">018-228 8618</a>.</p>
+        </div>
+
+        <form class="form-card" id="enquiry-form" method="POST"
+              action="OUTPERFORM_ENDPOINT_PLACEHOLDER"
+              data-endpoint-status="placeholder">
+          <!--
+            SWAP POINT. Replace the action above with the Outperform endpoint, add
+            the hidden routing fields it requires, set the thank-you return URL,
+            then DELETE the guard block in the script at the foot of this file.
+            Field names below follow the house standard until Outperform's are known.
+          -->
+          <div class="form-field">
+            <label for="f-name">Name</label>
+            <input id="f-name" name="last_name" type="text" maxlength="80" required autocomplete="name">
+          </div>
+          <div class="form-field">
+            <label for="f-email">Email</label>
+            <input id="f-email" name="email" type="email" maxlength="80" required autocomplete="email">
+          </div>
+          <div class="form-field">
+            <label for="f-phone">Phone number</label>
+            <input id="f-phone" name="mobile" type="tel" maxlength="20" required autocomplete="tel" inputmode="tel">
+          </div>
+
+          <div class="captcha-slot">Captcha slot, wire to Outperform's provider</div>
+
+          <button class="btn btn-primary" type="submit">Register interest</button>
+
+          <div class="consent">
+            <p>By submitting this form you confirm the following.</p>
+            <p>I am at least 18 years of age. I have read and agree to the <a href="#" data-tbc="terms">Terms and Conditions</a>.</p>
+            <p>I have read your Personal Data Protection Notice under the Personal Data Protection Act 2010 ("Privacy Notice").</p>
+            <p>I consent to the processing of my personal data (including sensitive personal data) pursuant to the Privacy Notice and this Form.</p>
+            <p>For the personal data of other individual(s) which I have provided to you in this Form, I confirm that the individual has read the Privacy Notice, and that:</p>
+            <ol>
+              <li>he/she consents to the Privacy Notice and this Form; or</li>
+              <li>I have the legal authority to provide consent on that individual's behalf (where he/she is below 18 years of age or legally incapable of providing consent).</li>
+            </ol>
+            <p style="margin-top:var(--s1)">Personal data in this Form can be processed by or disclosed to you, for the Sales and Marketing of your products and services. "Sales and Marketing" means to carry out data analytics, and to send you marketing and promotional materials.</p>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec">
+    <div class="wrap">
+      <div class="sec-head">
+        <p class="eyebrow">Other projects</p>
+        <h2 class="h2">Not the right fit? Two more to look at.</h2>
+      </div>
+      <div class="proj">
+        <article class="proj-card">
+          <div class="proj-ph" aria-hidden="true"></div>
+          <div class="proj-body">
+            <p class="eyebrow">Launching soon</p>
+            <h3 class="h3">Kempas Residences Block B</h3>
+            <p class="muted" style="font-size:12px">Genting Highlands, Pahang</p>
+            <p class="muted" style="font-size:12px;margin-top:var(--s2)"><span class="tbc">Imagery pending</span></p>
+          </div>
+        </article>
+        <article class="proj-card">
+          <div class="proj-ph" aria-hidden="true"></div>
+          <div class="proj-body">
+            <p class="eyebrow">Coming soon</p>
+            <h3 class="h3">Leeds Residences</h3>
+            <p class="muted" style="font-size:12px">Putra Heights, Selangor</p>
+            <p class="muted" style="font-size:12px;margin-top:var(--s2)"><span class="tbc">Imagery pending</span></p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<a class="wa" href="https://wa.me/60182288618" aria-label="Chat with us on WhatsApp">
+  <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.93 1.35-.53.06-1.03.08-1.6-.1-.37-.11-.85-.27-1.46-.53-2.57-1.11-4.25-3.7-4.38-3.87-.13-.17-1.04-1.38-1.04-2.64 0-1.25.66-1.87.89-2.13.23-.26.5-.32.67-.32.17 0 .33.001.48.01.15.008.36-.06.56.43.2.49.7 1.7.76 1.82.06.13.1.28.02.45-.09.17-.13.28-.26.43-.13.15-.28.34-.4.45-.13.13-.27.27-.12.53.15.26.67 1.11 1.44 1.8.99.88 1.82 1.15 2.08 1.28.26.13.41.11.56-.07.15-.17.65-.76.82-1.02.17-.26.35-.22.58-.13.24.09 1.5.71 1.76.84.26.13.43.19.5.3.06.11.06.64-.18 1.32z"/></svg>
+</a>
+
+<footer class="foot">
+  <div class="wrap">
+    <div class="foot-in">
+      <img src="assets/logo/mldc-primary-white.svg" alt="MLDC" width="56" height="26">
+      <p>&copy; 2026 MLDC Berhad. All rights reserved.
+        &middot; <a href="#" data-tbc="privacy">Privacy policy</a>
+        &middot; <a href="#" data-tbc="terms">Terms &amp; conditions</a>
+      </p>
+    </div>
+    <p class="foot-legal" style="margin-top:var(--s4)">
+      <span class="tbc">Developer licence and advertising permit numbers TBC</span>
+      <br><br>
+      All images, dimensions and descriptions are for illustration only and do not form part of any contract. Unit sizes are approximate and subject to final survey. The developer reserves the right to alter specifications without prior notice.
+    </p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var price=document.getElementById('c-price'),
+      margin=document.getElementById('c-margin'),
+      years=document.getElementById('c-years'),
+      rate=document.getElementById('c-rate'),
+      out=document.getElementById('c-out');
+
+  function readPrice(v){
+    var n=parseFloat(String(v).replace(/[^0-9.]/g,''));
+    if(!isFinite(n)||n<=0) return 0;
+    return n<10000 ? n*1000 : n;   // "288" means RM288,000
+  }
+  function money(n){
+    return 'RM'+Math.round(n).toLocaleString('en-MY');
+  }
+  function calc(){
+    var p=readPrice(price.value),
+        m=parseFloat(margin.value)/100,
+        y=parseFloat(years.value),
+        r=parseFloat(rate.value)/100/12;
+    if(!p||!isFinite(m)||!isFinite(y)||!isFinite(r)||y<=0){
+      out.textContent='Enter a price to estimate';
+      out.classList.add('is-empty'); return;
+    }
+    var loan=p*m, n=y*12,
+        inst = r>0 ? loan*r/(1-Math.pow(1+r,-n)) : loan/n;
+    out.classList.remove('is-empty');
+    out.textContent=money(inst)+' / month';
+  }
+  [price,margin,years,rate].forEach(function(el){
+    el.addEventListener('input',calc);
+  });
+  calc();
+
+  // GUARD BLOCK: delete once the Outperform endpoint is wired.
+  // Without it the form would POST to a placeholder and the lead would be lost.
+  var form=document.getElementById('enquiry-form');
+  if(form.getAttribute('data-endpoint-status')==='placeholder'){
+    form.addEventListener('submit',function(e){
+      e.preventDefault();
+      if(form.querySelector('.form-notice')) return;
+      var n=document.createElement('p');
+      n.className='form-notice';
+      n.setAttribute('role','status');
+      n.textContent='Form is built but not yet connected. The Outperform CRM endpoint is pending, so nothing has been sent.';
+      form.appendChild(n);
+    });
+  }
+})();
+</script>
 </body>
 </html>
