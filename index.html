@@ -1,5 +1,15 @@
 <!doctype html>
 <!--
+  ROUND 8 CHANGE SPEC (Josh, 2026-09-13). Builds on round 7 (deployed 43d6807); tokens in DESIGN.md.
+
+  1 GOLF COPY    NEW  draft copy for the "For golfers" tab, same structure as the other two tabs (lead,
+                      one H3, two paragraphs, View more clamp on mobile). Facts used: Awana Golf and Country
+                      Resort 6.2km / 11 min and Awana SkyWay 5.1km / 9 min, both Google Maps in typical
+                      traffic captured 2026-09-13; freehold, completed, fully furnished from the brochure.
+                      "18 holes" is public knowledge about Awana, not from a client document: confirm.
+  2 GOLF DIST    FIX  the XX km token for Awana Golf is filled; the SkyWay row moves from the developer's
+                      5.7km to Google's 5.1km so the tab and the map quote one source, with a provenance line.
+
   ROUND 7 CHANGE SPEC (Josh, 2026-09-13). Builds on round 6 (deployed 8801896); tokens in DESIGN.md.
 
   1 HERO REVEAL  NEW  one CSS-only landing sequence, 1.3s total, runs once per load, keyed off html.js
@@ -212,6 +222,7 @@ button{font:inherit;color:inherit}
 .dl div{background:var(--white);display:flex;justify-content:space-between;gap:var(--s2);padding:14px var(--s3)}
 .dl dt{color:var(--muted);font-size:14px}
 .dl dd{margin:0;font-weight:500;text-align:right}
+#p-golf .dl dd{white-space:nowrap}
 .lines{list-style:none;margin:var(--s3) 0 0;padding:0;display:grid;gap:6px}
 .lines li{font-family:var(--font-display);font-size:20px;line-height:1.3;color:var(--maroon)}
 
@@ -758,13 +769,19 @@ html:not(.js) .attrib{bottom:calc(var(--s2) + 40px)}
         </div>
 
         <div class="panel grid-2" id="p-golf" role="tabpanel" aria-labelledby="tab-golf" tabindex="0">
-          <div class="golf">
-            <p class="lead">For golfers.</p>
-            <p><span class="tbc">Copy pending client brief</span></p>
-            <dl class="dl">
-              <div><dt>Awana Golf Course</dt><dd><span class="tbc">XX km</span></dd></div>
-              <div><dt>Awana SkyWay</dt><dd class="num">5.7km</dd></div>
-            </dl>
+          <div data-more class="more-mobile">
+            <div class="more-body">
+              <p class="lead">A morning round in the cool air, then home to a unit that is already set up. The Awana course is 11 minutes down the road, and your clubs can live here.</p>
+              <h3 class="h4" style="margin:var(--s4) 0 var(--s1)">Tee off early, be back for lunch</h3>
+              <p>Awana Golf and Country Resort is 6.2km away, 11 minutes in typical traffic. Play the 18 holes while the mist is still on the fairways and be on your own balcony, facing the forest, by midday.</p>
+              <p style="margin-top:var(--s2)">Between rounds the unit does the rest. Fully furnished from day one, freehold, and completed, so a golf weekend needs no more planning than the tee time. When the group wants an evening out, the Awana SkyWay up to the resort is 9 minutes away.</p>
+              <dl class="dl" style="margin-top:var(--s3)">
+                <div><dt>Awana Golf and Country Resort</dt><dd class="num">6.2km, 11 min</dd></div>
+                <div><dt>Awana SkyWay, Premium Outlets</dt><dd class="num">5.1km, 9 min</dd></div>
+              </dl>
+              <p class="small muted" style="margin-top:var(--s1)">Road distances and drive times from Google Maps in typical traffic, 13 September 2026.</p>
+            </div>
+            <button class="more-btn" type="button" aria-expanded="false"><span>View more</span><svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M3 6l5 5 5-5"/></svg></button>
           </div>
           <figure class="fig">
             <img src="assets/img/balcony.webp" alt="Private balcony framed in glass, looking out over the forested hills" width="1800" height="1350" loading="lazy">
