@@ -1,5 +1,19 @@
 <!doctype html>
 <!--
+  ROUND 9 CHANGE SPEC (Josh, 2026-09-13). Builds on round 8 (deployed 9208785); tokens in DESIGN.md.
+  Audit for leftovers from earlier builds, prompted by the old map screenshot flashing on load.
+
+  1 MAP STILL    FIX  the static fallback was the round-4 Google Maps screenshot, visible for a moment
+                      before MapLibre goes live and permanently without JS. Replaced by two stills rendered
+                      from our own map at step 0 (desktop with hillshade, mobile 4:5) via <picture>, so the
+                      loading state and the live map are the same picture. With JS on, the "needs scripts"
+                      caption no longer shows during load.
+  2 ZONE MARKER  FIX  the site pin's z-index (added in round 6 for label stacking) hid zone marker 2 on
+                      mobile at step 0. Zone markers now paint above the site pin.
+  3 DEAD CSS     FIX  .golf and .tbc-lg rules removed, no element uses them.
+  4 OLD ASSETS   FIX  convenience-map-placeholder.webp, three unused thumbnails and an empty
+                      mldc-secondary-black.svg moved to archive/assets-unused so they stop shipping.
+
   ROUND 8 CHANGE SPEC (Josh, 2026-09-13). Builds on round 7 (deployed 43d6807); tokens in DESIGN.md.
 
   1 GOLF COPY    NEW  draft copy for the "For golfers" tab, same structure as the other two tabs (lead,
@@ -387,7 +401,6 @@ button{font:inherit;color:inherit}
 .cta-note{margin-top:var(--s2)}
 
 /* UNRESOLVED METRIC, LARGE */
-.tbc-lg{font-family:var(--font-wf);font-size:24px;font-weight:500;line-height:1.3;letter-spacing:0;text-transform:none;padding:2px 10px}
 
 /* UNIT BAR */
 .unit-bar{position:sticky;top:calc(var(--nav-h) + var(--sub-h));z-index:40;background:var(--cream);display:flex;flex-direction:column;align-items:stretch;gap:var(--s2);
@@ -407,7 +420,6 @@ button{font:inherit;color:inherit}
 .chip-sz{font-family:var(--font-mono);font-size:12px;letter-spacing:.02em;text-transform:uppercase;color:var(--gold-t);
   border:1px solid var(--border);border-radius:var(--r-flag);padding:2px 8px;background:var(--beige)}
 .legend{font-size:14px;color:var(--muted)}
-.golf{display:grid;gap:var(--s2);align-content:start}
 .calc select{width:100%;min-height:48px;padding:0 var(--s2);font-size:16px;font-family:var(--font-wf);color:var(--char);
   background:var(--white);border:1px solid var(--border);border-radius:var(--r-input)}
 .calc select:focus-visible{outline:2px solid var(--green);outline-offset:1px;border-color:var(--green)}
@@ -492,7 +504,8 @@ section[id],footer[id]{scroll-margin-top:calc(var(--nav-h) + var(--sub-h) + 8px)
 .mapbox{position:relative;aspect-ratio:4/5;background:var(--beige);border-radius:var(--r-card);overflow:hidden}
 #map{position:absolute;inset:0}
 .map-fallback{position:absolute;inset:0;margin:0;background:var(--cream)}
-.map-fallback img{width:100%;height:100%;object-fit:cover}
+.map-fallback picture,.map-fallback img{display:block;width:100%;height:100%;object-fit:cover}
+.js .map-fallback figcaption{display:none}
 .map-fallback figcaption{position:absolute;left:var(--s2);bottom:var(--s2);font-size:12px;color:var(--muted);background:var(--cream);padding:4px 8px;border-radius:var(--r-flag)}
 .js .mapbox.is-live .map-fallback{display:none}
 .map-bar{display:flex;flex-direction:column;gap:var(--s2)}
@@ -557,6 +570,7 @@ html:not(.js) .attrib{bottom:calc(var(--s2) + 40px)}
 .mk.amen.active .lbl{background:var(--maroon);color:var(--cream);border-color:var(--maroon);font-weight:500}
 .mk.site{z-index:2}
 .mk.amen.active{z-index:3}
+.zn{z-index:4}
 .mk .lbl.clash{visibility:hidden}
 .mk.amen.pend .pin-bg path{fill:var(--muted-d)}
 .zn{width:32px;height:32px;border-radius:var(--r-btn);background:var(--gold);color:var(--green);border:2px solid var(--cream);display:flex;align-items:center;justify-content:center;font-family:var(--font-mono);font-size:14px;font-weight:500;cursor:pointer;box-shadow:0 2px 6px rgba(30,35,23,.3)}
@@ -820,7 +834,10 @@ html:not(.js) .attrib{bottom:calc(var(--s2) + 40px)}
         <div class="mapbox" id="mapbox">
           <div id="map" role="region" aria-label="Interactive map of Genting Highlands, from the resort at the top to the Karak Expressway at the foot, with Kempas Residences Block C midhill"></div>
           <figure class="map-fallback" id="map-fallback">
-            <img src="assets/img/convenience-map-placeholder.webp" alt="Map of the Genting Permai area with Kempas Residences Block C marked and nearby amenities" width="1329" height="909" loading="lazy">
+            <picture>
+              <source media="(min-width:900px)" srcset="assets/img/map-still-desktop.webp" width="1252" height="1192">
+              <img src="assets/img/map-still-mobile.webp" alt="Map of Genting Highlands from the resort at the top to the Karak Expressway at the foot, with Kempas Residences Block C marked midhill" width="1026" height="1273" loading="eager" fetchpriority="low">
+            </picture>
             <figcaption>Static map. The interactive map needs scripts enabled.</figcaption>
           </figure>
           <div class="ctl" id="map-ctl" hidden>
