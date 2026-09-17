@@ -1,5 +1,15 @@
 <!doctype html>
 <!--
+  ROUND 15 CHANGE SPEC (Josh, 2026-09-17). Builds on round 14 (deployed f92522d). Tokens in DESIGN.md.
+
+  1 STICKY BARS  FIX  on the client's iPhone 14 the header and anchor bar had grown to several times their
+                      height. Cause: the script measured the bars and wrote the result into --nav-h and --sub-h,
+                      which the bars also used as their own min-height; offsetHeight includes the 1px border, so
+                      every resize event added a pixel, and iOS Safari fires resize on every scroll as the URL bar
+                      collapses. Reproduced in Chrome by firing 40 resize events: nav 74px to 114px at all 12
+                      viewports tested. Fix: the bars' min-heights use static --nav-min / --sub-min; the measured
+                      variables are only sticky offsets. Duplicate setNavH definition removed.
+
   ROUND 14 CHANGE SPEC (Josh, 2026-09-17). Builds on round 13 (deployed 11dded7). Tokens in DESIGN.md.
 
   1 FAVICON      FIX  the tab icon read too small: the logo file carries a 850 x 397 frame around a 567-wide
@@ -177,7 +187,7 @@
 @font-face{font-family:'Haffer Mono';src:url('assets/fonts/haffer-mono.woff2') format('woff2');font-weight:400;font-style:normal;font-display:swap}
 
 :root{
-  --sub-h:48px;
+  --sub-h:48px; --sub-min:48px;
   --green:#1E2317; --cream:#FCF9F3; --beige:#F3ECDD; --white:#FFFFFF;
   --gold:#B1821D; --gold-t:#846014; --maroon:#49161D; --char:#1A1A1A;
   --muted:#646470; --border:#E6DFD0; --muted-d:#C9C4B4; --surf-d:#2A3124; --border-d:#3A4232;
@@ -186,7 +196,7 @@
   --font-mono:'Haffer Mono',ui-monospace,'SF Mono',Menlo,monospace;
   --font-display:'Playfair Display',Georgia,serif;
   --r-btn:999px; --r-card:8px; --r-input:8px; --r-flag:2px;
-  --chamfer:14px; --nav-h:72px;
+  --chamfer:14px; --nav-h:72px; --nav-min:72px;
   --gutter:24px; --maxw:1200px;
   --s1:8px; --s2:16px; --s3:24px; --s4:32px; --s5:48px; --s6:64px; --s7:96px;
 }
@@ -236,7 +246,7 @@ button{font:inherit;color:inherit}
 .btn:active{transform:translateY(0)}
 
 .nav{position:sticky;top:0;z-index:50;background:var(--cream);border-bottom:1px solid var(--border)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);min-height:var(--nav-h)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:var(--s2);min-height:var(--nav-min)}
 .nav-logo{display:inline-flex;align-items:center;min-height:44px}
 .nav-logo img{height:33px;width:auto}
 .nav-act{display:flex;align-items:center;gap:var(--s2)}
@@ -541,9 +551,9 @@ html.lb-open{overflow:hidden}
 
 /* LEGEND SUB-NAV */
 .subnav{position:sticky;top:var(--nav-h);z-index:45;background:var(--cream);border-bottom:1px solid var(--border)}
-.subnav-in{display:flex;gap:var(--s3);overflow-x:auto;scrollbar-width:none;min-height:var(--sub-h);align-items:stretch}
+.subnav-in{display:flex;gap:var(--s3);overflow-x:auto;scrollbar-width:none;min-height:var(--sub-min);align-items:stretch}
 .subnav-in::-webkit-scrollbar{display:none}
-.subnav a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:var(--sub-h);padding:0 2px;font-size:14px;font-weight:500;color:var(--muted);
+.subnav a{flex:0 0 auto;display:inline-flex;align-items:center;min-height:var(--sub-min);padding:0 2px;font-size:14px;font-weight:500;color:var(--muted);
   text-decoration:none;border-bottom:2px solid transparent;white-space:nowrap;transition:color .18s ease,border-color .18s ease}
 .subnav a:hover{color:var(--char)}
 .subnav a.is-active{color:var(--maroon);border-bottom-color:var(--gold)}
@@ -1430,9 +1440,10 @@ html:not(.js) .attrib{bottom:calc(var(--s2) + 40px)}
     b.addEventListener('click',function(){var o=w.classList.toggle('is-open');b.setAttribute('aria-expanded',o?'true':'false');});})();
 
   // Sticky sub-tabs sit under the real nav height, not a guessed one.
-  var nav=document.getElementById('nav');
-  function setNavH(){ html.style.setProperty('--nav-h', nav.offsetHeight+'px'); }
-  var legend=document.getElementById('legend');
+  // --nav-h and --sub-h are OFFSETS for the sticky layers below, measured from the bars. The bars' own minimum
+  // heights use --nav-min and --sub-min, which are never written by script, so measuring cannot feed back into
+  // the thing being measured (that loop grew the bars 1px per resize event; iOS Safari fires resize on scroll).
+  var nav=document.getElementById('nav'), legend=document.getElementById('legend');
   function setNavH(){ html.style.setProperty('--nav-h', nav.offsetHeight+'px'); if(legend) html.style.setProperty('--sub-h', legend.offsetHeight+'px'); }
   setNavH(); window.addEventListener('resize',setNavH);
 
