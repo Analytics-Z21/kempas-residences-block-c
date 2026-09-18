@@ -1,5 +1,13 @@
 <!doctype html>
 <!--
+  ROUND 21 CHANGE SPEC (Josh, 2026-09-18). Builds on round 20 (deployed 55c0cd2). Tokens in DESIGN.md.
+  1 LEADS OFF    NEW  Outperform is not ready, so the lead layer is hidden until Josh says otherwise (review Friday
+                      2026-09-25): every "Book a viewing" CTA (header, hero, units), the "Skip to enquiry form" link,
+                      the Enquire item in the section nav, the Enquire section with its form, and the slide-out sheet.
+                      One switch does it: data-leads="off" on <html>, with a CSS rule set and a guard in sheetOpen().
+                      Removing the attribute restores everything; no markup was deleted. WhatsApp and the phone number
+                      stay, so the page still has a contact route. GA4 lead events cannot fire while the switch is off.
+
   ROUND 20 CHANGE SPEC (Josh, 2026-09-18). Builds on round 19 (deployed 5c09ae8). Tokens in DESIGN.md.
   0 CLARITY      NEW  Microsoft Clarity project yk5uomadpu loads from the head next to the Google tag, same
                       localhost gating. track() mirrors every event name into Clarity as a custom event, sets
@@ -358,7 +366,7 @@
   UNRESOLVED FACTS render as visible .tbc tokens, never as figures: price per layout, units left,
   Awana Golf Course distance, level count, APDL/DL numbers, privacy + T&C targets.
 -->
-<html lang="en-MY">
+<html lang="en-MY" data-leads="off"><!-- data-leads="off" hides the lead layer (Book a viewing CTAs, Enquire section, slide-out form) until Outperform is ready. Remove the attribute to restore. Josh, 2026-09-18, review Friday 2026-09-25. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -888,6 +896,9 @@ html:not(.js) .attrib{bottom:calc(var(--s2) + 40px)}
 .btn-map-back{background:var(--cream);color:var(--green);border-color:var(--green)}
 .btn-map-back:hover{background:var(--green);color:var(--cream)}
 .mapbox.st0 .mk.site .lbl{display:none}
+/* Lead layer switch (round 21). data-leads="off" on <html> hides every Book a viewing CTA, the skip link, the Enquire nav item,
+   the Enquire section and the slide-out sheet. CSS only, so it holds without JS; sheetOpen() is guarded too. */
+html[data-leads="off"] .skip[href="#enquire"],html[data-leads="off"] a.btn[href="#enquire"],html[data-leads="off"] .subnav a[href="#enquire"],html[data-leads="off"] #enquire,html[data-leads="off"] #sheet{display:none}
 .mapbox.stm .mk.site{display:none}  /* macro step: the country view carries its own Genting pill */
 .zn.city{padding:0 10px}
 .zn-s{font-family:var(--font-mono);font-size:12px;font-weight:400;opacity:.85}
@@ -1854,7 +1865,7 @@ html:not(.js) .attrib{bottom:calc(var(--s2) + 40px)}
   // Book a viewing: every CTA opens the enquiry drawer; the anchor still scrolls to the form without JS.
   var sheet=document.getElementById('sheet'), sheetLast=null, sheetTimer=null;
   function sheetOpen(unit,src,extra){
-    if(!sheet) return; clearTimeout(sheetTimer); sheetLast=document.activeElement; sheet.hidden=false; html.classList.add('lb-open');
+    if(!sheet || document.documentElement.getAttribute('data-leads')==='off') return; clearTimeout(sheetTimer); sheetLast=document.activeElement; sheet.hidden=false; html.classList.add('lb-open');
     var tp={cta_location:where(src)}; if(extra) for(var k in extra) tp[k]=extra[k]; track('enquiry_open',tp);
     var fu=document.getElementById('f-unit-s'); if(fu&&unit!==undefined) fu.value=unit;
     requestAnimationFrame(function(){ sheet.classList.add('is-open'); });
