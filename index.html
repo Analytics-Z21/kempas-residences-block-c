@@ -1,5 +1,13 @@
 <!doctype html>
 <!--
+  ROUND 25 CHANGE SPEC (Josh, 2026-09-22). Builds on round 24 (deployed 43ce585). Measurement only, no visual change.
+  1 STAFF OPTOUT NEW  a per-browser opt-out so our own team, including Josh, stops being counted. Visiting the site
+                      with ?ga_optout=1 stores a flag (localStorage kempas-optout) and turns OFF both Google Analytics
+                      and Microsoft Clarity for that browser for good, across IP and device changes; ?ga_optout=0 turns
+                      it back on. A one-time alert confirms, and the ga_optout parameter is stripped from the URL. The
+                      flag also sets window['ga-disable-<id>'] and short-circuits track(), so no GA hit, Clarity
+                      session or dataLayer push is made. Each staff member runs the link once per browser they use.
+
   ROUND 24 CHANGE SPEC (Josh, 2026-09-22). Builds on round 23 (deployed abd85fc). Measurement only, no visual change.
   1 CLARITY ID  FIX  Clarity project switched from yk5uomadpu to ym30en9vjr (Josh supplied the correct snippet).
                      The old project was live in v19 to v23 and holds a day or two of data that stays there.
@@ -415,9 +423,22 @@ window.dataLayer=window.dataLayer||[];
 function gtag(){dataLayer.push(arguments);}
 (function(){
   var id=window.KEMPAS_GA4_ID, dbg=/[?&]ga_debug=1(&|$)/.test(location.search);
+  // Internal opt-out, shared with Clarity: ?ga_optout=1 turns analytics OFF for this browser for good; ?ga_optout=0 turns it back on.
+  var OK='kempas-optout';
+  function optGet(){ try{ return localStorage.getItem(OK); }catch(e){ return null; } }
+  function optSet(v){ try{ localStorage.setItem(OK,v); }catch(e){} }
+  function optDel(){ try{ localStorage.removeItem(OK); }catch(e){} }
+  var mo=location.search.match(/[?&]ga_optout=([01])(?:&|$)/);
+  if(mo){
+    if(mo[1]==='1') optSet('1'); else optDel();
+    try{ var u=new URL(location.href); u.searchParams.delete('ga_optout'); history.replaceState(null,'',u.pathname+u.search+u.hash); }catch(e){}
+    try{ alert(mo[1]==='1'?'Kempas C analytics are now OFF on this browser. Do this once on every device and browser you use to view the site.':'Kempas C analytics are back ON for this browser.'); }catch(e){}
+  }
+  window.KEMPAS_OPTOUT = optGet()==='1';
+  if(window.KEMPAS_OPTOUT) window['ga-disable-'+id]=true;
   var local=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
   var real=/^G-[A-Z0-9]{6,12}$/.test(id) && !/^G-X+$/.test(id);
-  window.KEMPAS_GA4_ON = real && (!local || dbg);
+  window.KEMPAS_GA4_ON = real && !window.KEMPAS_OPTOUT && (!local || dbg);
   if(!window.KEMPAS_GA4_ON) return;
   gtag('js',new Date());
   var cfg={}; if(dbg) cfg.debug_mode=true;
@@ -440,7 +461,7 @@ window.KEMPAS_CLARITY_ID='ym30en9vjr';  // corrected project 2026-09-22 (was yk5
 (function(){
   var dbg=/[?&]ga_debug=1(&|$)/.test(location.search);
   var local=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
-  window.KEMPAS_CLARITY_ON = !!window.KEMPAS_CLARITY_ID && (!local || dbg);
+  window.KEMPAS_CLARITY_ON = !!window.KEMPAS_CLARITY_ID && !window.KEMPAS_OPTOUT && (!local || dbg);
   if(!window.KEMPAS_CLARITY_ON) return;
   (function(c,l,a,r,i,t,y){
     c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
@@ -1743,6 +1764,7 @@ html[data-leads="off"] .skip[href="#enquire"],html[data-leads="off"] a.btn[href=
   // site_language rides on every event so any report can be cut by language.
   // Rule: nothing a visitor typed goes in here. No name, email, phone, no free text.
   function track(name,params){
+    if(window.KEMPAS_OPTOUT) return;
     if(typeof gtag!=='function') return;
     var p={site_language:curLang};
     if(params) for(var k in params){ var v=params[k]; if(v!==undefined&&v!==null&&v!=='') p[k]=v; }
