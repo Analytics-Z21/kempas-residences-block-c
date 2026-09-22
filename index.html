@@ -1,5 +1,9 @@
 <!doctype html>
 <!--
+  ROUND 24 CHANGE SPEC (Josh, 2026-09-22). Builds on round 23 (deployed abd85fc). Measurement only, no visual change.
+  1 CLARITY ID  FIX  Clarity project switched from yk5uomadpu to ym30en9vjr (Josh supplied the correct snippet).
+                     The old project was live in v19 to v23 and holds a day or two of data that stays there.
+
   ROUND 23 CHANGE SPEC (Josh, 2026-09-21). Fixes on round 22 (deployed be8b1c2). Tokens in DESIGN.md.
   1 LB NO FLASH  FIX  the lightbox <img> was preloaded with the hero-aerial thumbnail and reset to it on close, so
                       opening a unit photo flashed the hero banner for a frame. The placeholder is now a transparent
@@ -424,7 +428,7 @@ function gtag(){dataLayer.push(arguments);}
 })();
 </script>
 <!--
-  Microsoft Clarity, round 20. Project yk5uomadpu ("[MLDC] Kempas C"). Same gating as the Google tag:
+  Microsoft Clarity. Project ym30en9vjr ("MLDC: Kempas C"), corrected 2026-09-22 from yk5uomadpu. Same gating as the Google tag:
   off on localhost unless ?ga_debug=1. Clarity masks input text by default and the enquiry forms hold
   name, email and phone, so masking stays at the default or stricter, never relaxed. Events mirror GA4
   through track(): every event name also goes to Clarity as a custom event, site_language is a Clarity
@@ -432,7 +436,7 @@ function gtag(){dataLayer.push(arguments);}
   be filtered to sessions that produced a lead, or to Chinese or Malay visitors.
 -->
 <script>
-window.KEMPAS_CLARITY_ID='yk5uomadpu';
+window.KEMPAS_CLARITY_ID='ym30en9vjr';  // corrected project 2026-09-22 (was yk5uomadpu, wrong project)
 (function(){
   var dbg=/[?&]ga_debug=1(&|$)/.test(location.search);
   var local=/^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
