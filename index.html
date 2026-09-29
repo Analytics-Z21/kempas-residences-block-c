@@ -1,5 +1,14 @@
 <!doctype html>
 <!--
+  ROUND 29 CHANGE SPEC (Josh, 2026-09-29). Builds on round 28 (deployed 948d854). No visual change beyond the hidden button.
+  1 WA HIDDEN    NEW  the WhatsApp number is blocked, so every WhatsApp button is hidden until a new number is issued:
+                      the header button, the hero button, the floating chat button, and the WhatsApp text link in the
+                      enquiry block. One switch, data-whatsapp="off" on <html>, drives a CSS rule that hides every
+                      wa.me link; removing the attribute restores them. The tel: links to the same blocked number sit
+                      inside the enquiry section and the slide-out, which are already hidden by data-leads="off", so no
+                      visible surface of the blocked number remains. Update the number in the wa.me and tel: links when
+                      the new one arrives, then drop the attribute.
+
   ROUND 28 CHANGE SPEC (Josh, 2026-09-29). Builds on round 27 (deployed b28c398). Media only, no visual/code change.
   1 STUDIO PICS  NEW  MLDC's refreshed Studio photos for Level 5 and Level 6 (two zips, 2026-09-29) replace the
                       studio-5 and studio-6 sets, four each. Oriented through Pillow from the source; the Level 5 HEIC
@@ -418,7 +427,7 @@
   UNRESOLVED FACTS render as visible .tbc tokens, never as figures: price per layout, units left,
   Awana Golf Course distance, level count, APDL/DL numbers, privacy + T&C targets.
 -->
-<html lang="en-MY" data-leads="off"><!-- Lead layer switch. "off" hides it (production, until Outperform is ready); "staging" shows it but a submit runs the success flow WITHOUT posting to n8n or firing lead analytics (preview only); no attribute = live, real post. Josh, 2026-09-18, review Friday 2026-09-25. -->
+<html lang="en-MY" data-leads="off" data-whatsapp="off"><!-- Lead layer switch. "off" hides it (production, until Outperform is ready); "staging" shows it but a submit runs the success flow WITHOUT posting to n8n or firing lead analytics (preview only); no attribute = live, real post. Josh, 2026-09-18, review Friday 2026-09-25. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -966,6 +975,7 @@ html:not(.js) .attrib{bottom:calc(var(--s2) + 40px)}
 /* Lead layer switch (round 21; three-state from round 26). data-leads="off" on <html> hides every Book a viewing CTA, the skip link, the Enquire nav item,
    the Enquire section and the slide-out sheet. CSS only, so it holds without JS; sheetOpen() is guarded too. */
 html[data-leads="off"] .skip[href="#enquire"],html[data-leads="off"] a.btn[href="#enquire"],html[data-leads="off"] .subnav a[href="#enquire"],html[data-leads="off"] #enquire,html[data-leads="off"] #sheet{display:none}
+html[data-whatsapp="off"] a[href*="wa.me"]{display:none}  /* WhatsApp switch: the number is blocked; remove data-whatsapp="off" from <html> to restore (round 29) */
 .mapbox.stm .mk.site{display:none}  /* macro step: the country view carries its own Genting pill */
 .zn.city{padding:0 10px}
 .zn-s{font-family:var(--font-mono);font-size:12px;font-weight:400;opacity:.85}
