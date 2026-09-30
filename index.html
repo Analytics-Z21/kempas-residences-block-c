@@ -1,5 +1,13 @@
 <!doctype html>
 <!--
+  ROUND 30 CHANGE SPEC (Josh, 2026-09-30). Builds on round 29 (deployed c55772b). Tokens in DESIGN.md.
+  1 LEADS ON     FIX  the lead layer is turned back on for production: the data-leads="off" attribute is removed from
+                      the <html> tag, so every Book a viewing CTA, the Enquire section and the slide-out form return and
+                      a submit posts to the n8n webhook for real (the interim lead of record, ok:true confirms the row).
+                      The three-state switch stays in the code for future use. WhatsApp buttons remain hidden
+                      (data-whatsapp="off", round 29) because that number is blocked; the tel: "call now" links are left
+                      as they are on the assumption voice still works on the line, to confirm with Josh.
+
   ROUND 29 CHANGE SPEC (Josh, 2026-09-29). Builds on round 28 (deployed 948d854). No visual change beyond the hidden button.
   1 WA HIDDEN    NEW  the WhatsApp number is blocked, so every WhatsApp button is hidden until a new number is issued:
                       the header button, the hero button, the floating chat button, and the WhatsApp text link in the
@@ -427,7 +435,7 @@
   UNRESOLVED FACTS render as visible .tbc tokens, never as figures: price per layout, units left,
   Awana Golf Course distance, level count, APDL/DL numbers, privacy + T&C targets.
 -->
-<html lang="en-MY" data-leads="off" data-whatsapp="off"><!-- Lead layer switch. "off" hides it (production, until Outperform is ready); "staging" shows it but a submit runs the success flow WITHOUT posting to n8n or firing lead analytics (preview only); no attribute = live, real post. Josh, 2026-09-18, review Friday 2026-09-25. -->
+<html lang="en-MY" data-whatsapp="off"><!-- Lead layer LIVE from round 30 (Josh, 2026-09-30): no data-leads attribute means the enquiry form posts for real. To hide it again, add data-leads="off"; data-leads="staging" shows it but sinks submissions (preview only). data-whatsapp="off" still hides the WhatsApp buttons while that number is blocked (round 29). -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
