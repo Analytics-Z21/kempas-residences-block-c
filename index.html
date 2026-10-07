@@ -1,5 +1,13 @@
 <!doctype html>
 <!--
+  ROUND 32 CHANGE SPEC (Josh, 2026-10-07). Builds on round 31 (deployed 7323f6b). Tokens in DESIGN.md.
+  1 NUMBER BACK  FIX  the new contact number 03-9213 1465 (WhatsApp and voice) replaces the blocked 018-228 8618
+                      everywhere: both WhatsApp buttons, the floating WhatsApp, the Enquire and slide-out "call now"
+                      lines, and the form's failure notice (EN/ZH/MS). Both switches go back on: data-whatsapp="on"
+                      and data-phone="on" on <html>, so the WhatsApp buttons and the "call us" prompts show again.
+                      Josh supplied the number as "the microsite's new WhatsApp number"; it is applied to the tel:
+                      links too, on the basis that one number serves both channels.
+
   ROUND 31 CHANGE SPEC (Josh, 2026-09-30). Builds on round 30 (deployed 3e98746). Tokens in DESIGN.md.
   1 CALLS OFF    FIX  the "call us" prompts are removed while the phone number is blocked (same number as WhatsApp).
                       A new switch, data-phone="off" on <html>, hides the "Prefer to speak now? Call" line in the
@@ -442,7 +450,7 @@
   UNRESOLVED FACTS render as visible .tbc tokens, never as figures: price per layout, units left,
   Awana Golf Course distance, level count, APDL/DL numbers, privacy + T&C targets.
 -->
-<html lang="en-MY" data-whatsapp="off" data-phone="off"><!-- Lead layer LIVE from round 30: no data-leads attribute means the enquiry form posts for real (data-leads="off" hides it; "staging" sinks submissions). data-whatsapp="off" hides the WhatsApp buttons and data-phone="off" hides the "call us" prompts, both because that number is blocked (round 29/31); remove those two attributes and update the wa.me/tel: links once a new number is issued. -->
+<html lang="en-MY" data-whatsapp="on" data-phone="on"><!-- Lead layer LIVE (no data-leads attribute = enquiry form posts for real; data-leads="off" hides it, "staging" sinks submissions). data-whatsapp and data-phone are "on" with the current contact number 03-9213 1465 (wa.me/60392131465, tel:+60392131465), restored round 32 after the previous number was blocked; set either attribute to "off" to hide that channel again. -->
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1175,7 +1183,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
     </a>
     <div class="nav-act">
       <button class="lang-btn" type="button" id="lang-btn" aria-haspopup="dialog" aria-controls="lang" aria-label="Language: English" data-i18n-attr="aria-label:s221">EN</button>
-      <a class="btn btn-ghost" href="https://wa.me/60182288618" target="_blank" rel="noopener" data-i18n="s3">WhatsApp<span class="l2">&nbsp;us</span></a>
+      <a class="btn btn-ghost" href="https://wa.me/60392131465" target="_blank" rel="noopener" data-i18n="s3">WhatsApp<span class="l2">&nbsp;us</span></a>
       <a class="btn btn-primary" href="#enquire" data-i18n="s4">Book<span class="l2">&nbsp;a viewing</span></a>
     </div>
   </div>
@@ -1215,7 +1223,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
       </dl>
       <div class="hero-cta">
         <a class="btn btn-cta-dark" href="#enquire" data-i18n="s22">Book a viewing</a>
-        <a class="btn btn-ghost-light" href="https://wa.me/60182288618" target="_blank" rel="noopener" data-i18n="s23">WhatsApp us</a>
+        <a class="btn btn-ghost-light" href="https://wa.me/60392131465" target="_blank" rel="noopener" data-i18n="s23">WhatsApp us</a>
       </div>
     </div>
     <p class="hero-fine" data-i18n="s24">*Terms and conditions apply.</p>
@@ -1633,7 +1641,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
         <p class="kicker" data-i18n="s13">Enquire</p>
         <h2 class="h2" id="enq-title" style="margin:var(--s2) 0 var(--s3)" data-i18n="s193">Questions before you commit? Let us talk.</h2>
         <p class="lead muted" data-i18n="s194">Leave your details and we will send the floor plans, the unit schedule and current availability. One of our team follows up directly, usually the same working day.</p>
-        <p class="lead call-line" style="margin-top:var(--s3)"><span data-i18n="x_call">Prefer to speak now? Call</span> <a class="tel" href="tel:+60182288618">018-228 8618</a>.</p>
+        <p class="lead call-line" style="margin-top:var(--s3)"><span data-i18n="x_call">Prefer to speak now? Call</span> <a class="tel" href="tel:+60392131465">03-9213 1465</a>.</p>
       </div>
 
       <form class="form-card" id="enquiry-form" method="POST"
@@ -1738,7 +1746,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
     <p class="kicker" data-i18n="s13">Enquire</p>
     <h2 class="h2 sheet-title" id="sheet-title" data-i18n="s22">Book a viewing</h2>
     <p class="lead muted sheet-lead" data-i18n="x_sheet_lead">Leave your details and we will arrange a viewing and send the floor plans and current availability. One of our team follows up directly, usually the same working day.</p>
-    <p class="sheet-call"><span data-i18n="x_call">Prefer to speak now? Call</span> <a class="tel" href="tel:+60182288618">018-228 8618</a>.</p>
+    <p class="sheet-call"><span data-i18n="x_call">Prefer to speak now? Call</span> <a class="tel" href="tel:+60392131465">03-9213 1465</a>.</p>
           <form class="form-card form-sheet" id="enquiry-form-sheet" method="POST"
                 action="OUTPERFORM_ENDPOINT_PLACEHOLDER"
                 data-endpoint-status="n8n">
@@ -1783,7 +1791,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
   <button class="lb-btn lb-next" type="button" aria-label="Next photo" data-i18n-attr="aria-label:s280"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m6 3 5 5-5 5"/></svg></button>
 </div>
 
-<a class="wa" href="https://wa.me/60182288618" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" data-i18n-attr="aria-label:s281">
+<a class="wa" href="https://wa.me/60392131465" target="_blank" rel="noopener" aria-label="Chat with us on WhatsApp" data-i18n-attr="aria-label:s281">
   <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF" aria-hidden="true"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2 22l5.25-1.38a9.9 9.9 0 0 0 4.79 1.22h.01c5.46 0 9.91-4.45 9.91-9.91C21.96 6.45 17.5 2 12.04 2zm5.8 14.03c-.24.68-1.4 1.3-1.93 1.35-.53.06-1.03.08-1.6-.1-.37-.11-.85-.27-1.46-.53-2.57-1.11-4.25-3.7-4.38-3.87-.13-.17-1.04-1.38-1.04-2.64 0-1.25.66-1.87.89-2.13.23-.26.5-.32.67-.32.17 0 .33.001.48.01.15.008.36-.06.56.43.2.49.7 1.7.76 1.82.06.13.1.28.02.45-.09.17-.13.28-.26.43-.13.15-.28.34-.4.45-.13.13-.27.27-.12.53.15.26.67 1.11 1.44 1.8.99.88 1.82 1.15 2.08 1.28.26.13.41.11.56-.07.15-.17.65-.76.82-1.02.17-.26.35-.22.58-.13.24.09 1.5.71 1.76.84.26.13.43.19.5.3.06.11.06.64-.18 1.32z"/></svg>
 </a>
 
@@ -1897,7 +1905,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
         'Thank you. We have your details.':'\u8c22\u8c22\u60a8\u3002\u6211\u4eec\u5df2\u6536\u5230\u60a8\u7684\u8d44\u6599\u3002',
         'Our team will be in touch, usually the same working day.':'\u6211\u4eec\u7684\u56e2\u961f\u4f1a\u76f4\u63a5\u8ddf\u8fdb\uff0c\u901a\u5e38\u5728\u540c\u4e00\u4e2a\u5de5\u4f5c\u65e5\u5185\u3002',
         'Reference':'\u53c2\u8003\u7f16\u53f7',
-        'We could not send your enquiry. Please try again, or call us on 018-228 8618.':'\u65e0\u6cd5\u63d0\u4ea4\u60a8\u7684\u54a8\u8be2\u3002\u8bf7\u91cd\u8bd5\uff0c\u6216\u81f4\u7535 018-228 8618 \u8054\u7cfb\u6211\u4eec\u3002'
+        'We could not send your enquiry. Please try again, or call us on 03-9213 1465.':'\u65e0\u6cd5\u63d0\u4ea4\u60a8\u7684\u54a8\u8be2\u3002\u8bf7\u91cd\u8bd5\uff0c\u6216\u81f4\u7535 03-9213 1465 \u8054\u7cfb\u6211\u4eec\u3002'
       },
       ms:{
         'Please fill in your name, email and phone number.':'Sila isi nama, e-mel dan nombor telefon anda.',
@@ -1907,7 +1915,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
         'Thank you. We have your details.':'Terima kasih. Kami telah menerima butiran anda.',
         'Our team will be in touch, usually the same working day.':'Pasukan kami akan menghubungi anda, biasanya pada hari bekerja yang sama.',
         'Reference':'Rujukan',
-        'We could not send your enquiry. Please try again, or call us on 018-228 8618.':'Pertanyaan anda tidak dapat dihantar. Sila cuba lagi, atau hubungi kami di 018-228 8618.'
+        'We could not send your enquiry. Please try again, or call us on 03-9213 1465.':'Pertanyaan anda tidak dapat dihantar. Sila cuba lagi, atau hubungi kami di 03-9213 1465.'
       }
     };
     for(var l in add){
@@ -2504,7 +2512,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
         track('form_error',{form_id:form.id,form_location:loc,error_type:'capture_failed'});
         form.setAttribute('data-sending','');
         if(btn){ btn.disabled=false; btn.textContent=label; }
-        notice(form, document.documentElement.getAttribute('data-phone')==='off' ? 'We could not send your enquiry. Please try again.' : 'We could not send your enquiry. Please try again, or call us on 018-228 8618.');
+        notice(form, document.documentElement.getAttribute('data-phone')==='off' ? 'We could not send your enquiry. Please try again.' : 'We could not send your enquiry. Please try again, or call us on 03-9213 1465.');
       });
     });
   });
