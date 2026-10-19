@@ -1,5 +1,14 @@
 <!doctype html>
 <!--
+  ROUND 33 CHANGE SPEC (Josh, 2026-10-19). Builds on round 32 (deployed ed13e5f). Tokens in DESIGN.md.
+  1 CONSENT FOLD FIX  the "Terms and Conditions" link in both forms' consent block was a dead href="#".
+                      It now toggles the rest of the consent text: the lead-in and the 18+/T&C line stay
+                      visible, the Privacy Notice paragraphs, the two-item list and the Sales and Marketing
+                      line sit in .consent-more, folded until the link is clicked (click again folds it).
+                      aria-expanded and aria-controls are set by JS and re-synced after a language switch,
+                      because i18n rewrites the link's innerHTML. Without JS the full text shows, as before.
+                      Consent wording unchanged in all three languages. Footer T&C and privacy links untouched.
+
   ROUND 32 CHANGE SPEC (Josh, 2026-10-07). Builds on round 31 (deployed 7323f6b). Tokens in DESIGN.md.
   1 NUMBER BACK  FIX  the new contact number 03-9213 1465 (WhatsApp and voice) replaces the blocked 018-228 8618
                       everywhere: both WhatsApp buttons, the floating WhatsApp, the Enquire and slide-out "call now"
@@ -806,6 +815,8 @@ button{font:inherit;color:inherit}
 .consent ol{margin:var(--s1) 0 0;padding-left:1.2em}
 .consent p{margin-bottom:var(--s1)}
 .consent a{color:var(--cream)}
+.js .consent-more{display:none}
+.js .consent.is-open .consent-more{display:block}
 .form-field .opt{font-family:var(--font-wf);text-transform:none;letter-spacing:0;color:var(--muted-d);margin-left:6px}
 /* CTAs read in Title Case, every word (Josh, 2026-09-18). Applied as a transform so copy and translations stay as written. */
 .btn,.more-btn,.more-btn span,.zoom,.lv-arrow,.sheet-x{text-transform:capitalize}
@@ -1683,14 +1694,16 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
         <div class="consent">
           <p data-i18n="s200">By submitting this form you confirm the following.</p>
           <p data-i18n="s201">I am at least 18 years of age. I have read and agree to the <a href="#" data-tbc="terms">Terms and Conditions</a>.</p>
-          <p data-i18n="s202">I have read your Personal Data Protection Notice under the Personal Data Protection Act 2010 ("Privacy Notice").</p>
-          <p data-i18n="s203">I consent to the processing of my personal data (including sensitive personal data) pursuant to the Privacy Notice and this Form.</p>
-          <p data-i18n="s204">For the personal data of other individual(s) which I have provided to you in this Form, I confirm that the individual has read the Privacy Notice, and that:</p>
-          <ol>
-            <li data-i18n="s205">he/she consents to the Privacy Notice and this Form; or</li>
-            <li data-i18n="s206">I have the legal authority to provide consent on that individual's behalf (where he/she is below 18 years of age or legally incapable of providing consent).</li>
-          </ol>
-          <p style="margin-top:var(--s1)" data-i18n="s207">Personal data in this Form can be processed by or disclosed to you, for the Sales and Marketing of your products and services. "Sales and Marketing" means to carry out data analytics, and to send you marketing and promotional materials.</p>
+          <div class="consent-more" id="consent-more-main">
+            <p data-i18n="s202">I have read your Personal Data Protection Notice under the Personal Data Protection Act 2010 ("Privacy Notice").</p>
+            <p data-i18n="s203">I consent to the processing of my personal data (including sensitive personal data) pursuant to the Privacy Notice and this Form.</p>
+            <p data-i18n="s204">For the personal data of other individual(s) which I have provided to you in this Form, I confirm that the individual has read the Privacy Notice, and that:</p>
+            <ol>
+              <li data-i18n="s205">he/she consents to the Privacy Notice and this Form; or</li>
+              <li data-i18n="s206">I have the legal authority to provide consent on that individual's behalf (where he/she is below 18 years of age or legally incapable of providing consent).</li>
+            </ol>
+            <p style="margin-top:var(--s1)" data-i18n="s207">Personal data in this Form can be processed by or disclosed to you, for the Sales and Marketing of your products and services. "Sales and Marketing" means to carry out data analytics, and to send you marketing and promotional materials.</p>
+          </div>
         </div>
       </form>
     </div>
@@ -1771,14 +1784,16 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
             <div class="consent">
               <p data-i18n="s200">By submitting this form you confirm the following.</p>
               <p data-i18n="s201">I am at least 18 years of age. I have read and agree to the <a href="#" data-tbc="terms">Terms and Conditions</a>.</p>
-              <p data-i18n="s202">I have read your Personal Data Protection Notice under the Personal Data Protection Act 2010 ("Privacy Notice").</p>
-              <p data-i18n="s203">I consent to the processing of my personal data (including sensitive personal data) pursuant to the Privacy Notice and this Form.</p>
-              <p data-i18n="s204">For the personal data of other individual(s) which I have provided to you in this Form, I confirm that the individual has read the Privacy Notice, and that:</p>
-              <ol>
-                <li data-i18n="s205">he/she consents to the Privacy Notice and this Form; or</li>
-                <li data-i18n="s206">I have the legal authority to provide consent on that individual's behalf (where he/she is below 18 years of age or legally incapable of providing consent).</li>
-              </ol>
-              <p style="margin-top:var(--s1)" data-i18n="s207">Personal data in this Form can be processed by or disclosed to you, for the Sales and Marketing of your products and services. "Sales and Marketing" means to carry out data analytics, and to send you marketing and promotional materials.</p>
+              <div class="consent-more" id="consent-more-slide">
+                <p data-i18n="s202">I have read your Personal Data Protection Notice under the Personal Data Protection Act 2010 ("Privacy Notice").</p>
+                <p data-i18n="s203">I consent to the processing of my personal data (including sensitive personal data) pursuant to the Privacy Notice and this Form.</p>
+                <p data-i18n="s204">For the personal data of other individual(s) which I have provided to you in this Form, I confirm that the individual has read the Privacy Notice, and that:</p>
+                <ol>
+                  <li data-i18n="s205">he/she consents to the Privacy Notice and this Form; or</li>
+                  <li data-i18n="s206">I have the legal authority to provide consent on that individual's behalf (where he/she is below 18 years of age or legally incapable of providing consent).</li>
+                </ol>
+                <p style="margin-top:var(--s1)" data-i18n="s207">Personal data in this Form can be processed by or disclosed to you, for the Sales and Marketing of your products and services. "Sales and Marketing" means to carry out data analytics, and to send you marketing and promotional materials.</p>
+              </div>
             </div>
           </form>
   </div>
@@ -1937,6 +1952,11 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
     var md=document.querySelector('meta[name="description"]'); if(md) md.setAttribute('content',T('A completed, low-density freehold condominium in Genting Highlands, Pahang. Fully furnished and move-in ready.'));
     I18N_HOOKS.forEach(function(fn){ fn(); });
   }
+  /* Round 33: the consent T&C link folds and unfolds the rest of the consent text. Delegated,
+     because applyLang rewrites the link's innerHTML; aria is re-synced on every language switch. */
+  function consentSync(){ document.querySelectorAll('.consent').forEach(function(c){ var a=c.querySelector('a[data-tbc="terms"]'), m=c.querySelector('.consent-more'); if(!a||!m) return; a.setAttribute('aria-controls',m.id); a.setAttribute('aria-expanded',c.classList.contains('is-open')?'true':'false'); }); }
+  document.addEventListener('click',function(e){ var a=e.target.closest&&e.target.closest('.consent a[data-tbc="terms"]'); if(!a) return; e.preventDefault(); a.closest('.consent').classList.toggle('is-open'); consentSync(); });
+  consentSync(); onLang(consentSync);
   var LANG={en:['EN','English'],zh:['ZH','中文 (Chinese)'],ms:['BM','Bahasa Melayu']};
   function langGet(){ try{ return localStorage.getItem('kempas-lang'); }catch(e){ return null; } }
   function langSet(v){ try{ localStorage.setItem('kempas-lang',v); }catch(e){} langBtn.textContent=LANG[v][0]; document.querySelectorAll('#lang [data-lang]').forEach(function(b){ var on=b.getAttribute('data-lang')===v; b.classList.toggle('btn-primary',on); b.classList.toggle('btn-ghost',!on); b.setAttribute('aria-pressed',on?'true':'false'); }); applyLang(v); langBtn.setAttribute('aria-label',T('Language: ')+LANG[v][1]); }
