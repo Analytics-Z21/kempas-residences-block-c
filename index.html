@@ -1806,7 +1806,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
         var right= pl.km ? ('<span class="pmin">'+TF('{n} min',{n:'<b>'+pl.min+'</b>'})+'</span><span class="pkm">'+(pl.km<1?(Math.round(pl.km*1000)+(pl.n.indexOf('Pickle')>-1?T('m, on the estate'):T('m by road'))):(pl.km+T('km by road')))+'</span>') : '<span class="pmin tbc">'+T('XX km')+'</span>';
         var flag= pl.flag ? '<span class="pflag tbc">'+T(pl.flag)+'</span>' : (pl.note ? '<span class="pflag">'+T(pl.note)+'</span>' : '');
         b.innerHTML='<span class="pn">'+T(pl.n)+flag+'</span><span class="pr">'+right+'</span><span class="chev" aria-hidden="true"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="m6 3 5 5-5 5"/></svg></span>';
-        b.addEventListener('click',function(){ select(i); }); places.appendChild(b); rows.push(b);
+        b.addEventListener('click',function(){ if(active!==i&&pl.c) track('location_select',{map_category:cat,place_name:pl.n,drive_min:pl.min!=null?String(pl.min):undefined}); select(i); }); places.appendChild(b); rows.push(b);
       });
     }
     function buildAmen(){
@@ -1841,7 +1841,7 @@ html[data-phone="off"] .call-line,html[data-phone="off"] .sheet-call{display:non
     function toStep(n,after){ step=n; mapbox.classList.remove('st0'); mapbox.classList.remove('stm'); showCities(false); deselect(); STEPS[n](); if(after) map.once('moveend',after); }
     next.addEventListener('click',function(){ var n=Math.min(4,step+1); if(n!==step) track('map_step',{step_index:String(n),direction:'next'}); toStep(n); });
     back.addEventListener('click',function(){ var n=Math.max(0,step-1); if(n!==step) track('map_step',{step_index:String(n),direction:'back'}); toStep(n); });
-    document.querySelectorAll('.cpill').forEach(function(p){ p.addEventListener('click',function(){ var c=p.getAttribute('data-cat'); if(c===cat) return; document.querySelectorAll('.cpill').forEach(function(o){ o.classList.remove('on'); o.setAttribute('aria-pressed','false'); }); p.classList.add('on'); p.setAttribute('aria-pressed','true'); cat=c; deselect(); renderList(); buildAmen(); }); });
+    document.querySelectorAll('.cpill').forEach(function(p){ p.addEventListener('click',function(){ var c=p.getAttribute('data-cat'); if(c===cat) return; track('location_category',{map_category:c}); document.querySelectorAll('.cpill').forEach(function(o){ o.classList.remove('on'); o.setAttribute('aria-pressed','false'); }); p.classList.add('on'); p.setAttribute('aria-pressed','true'); cat=c; deselect(); renderList(); buildAmen(); }); });
     map.on('load',function(){
       recolour();
       try{ map.addSource('dem',{type:'raster-dem',tiles:['https://s3.amazonaws.com/elevation-tiles-prod/terrarium/{z}/{x}/{y}.png'],tileSize:256,encoding:'terrarium',maxzoom:14,attribution:'Terrain: Mapzen, AWS'}); map.addLayer({id:'hillshade',type:'hillshade',source:'dem',paint:{'hillshade-shadow-color':'#1E2317','hillshade-highlight-color':'#FFFFFF','hillshade-accent-color':'#1E2317','hillshade-exaggeration':wide?0.5:0.45}}, (map.getStyle().layers.find(function(l){ return l.type==='line'; })||{}).id); }catch(e){}
