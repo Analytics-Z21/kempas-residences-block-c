@@ -1,0 +1,7 @@
+# Keep the Cloudflare Pages hostnames out of search. The canonical site is
+# https://kempas-c.mldc.com.my/ ; these are duplicate copies of the same build.
+https://:project.pages.dev/*
+  X-Robots-Tag: noindex
+
+https://:version.:project.pages.dev/*
+  X-Robots-Tag: noindex
