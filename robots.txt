@@ -1,2 +1,4 @@
 User-agent: *
 Allow: /
+
+Sitemap: https://kempas-c.mldc.com.my/sitemap.xml
